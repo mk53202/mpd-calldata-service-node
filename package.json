@@ -1,0 +1,26 @@
+{
+  "name": "mpd-calldata-service-node",
+  "version": "1.0.0",
+  "description": "Call data",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mk53202/mpd-calldata-service-node.git"
+  },
+  "keywords": [
+    "call",
+    "data"
+  ],
+  "author": "Matt Koster <mattkoster@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mk53202/mpd-calldata-service-node/issues"
+  },
+  "homepage": "https://github.com/mk53202/mpd-calldata-service-node#readme",
+  "dependencies": {
+    "table-scraper": "^0.1.0"
+  }
+}
