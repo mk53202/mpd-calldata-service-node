@@ -4,17 +4,19 @@
 // https://itmdapps.milwaukee.gov/MPDCallData/index.jsp?district=All
 // https://www.npmjs.com/package/table-scraper
 // https://github.com/mysqljs/mysql
+// https://www.npmjs.com/package/tasktimer
 
 // Libraries
 var scraper = require('table-scraper')
-var mysql = require('mysql')
+// var mysql = require('mysql')
+// var TaskTimer = require('tasktimer')
 
 // Vars
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'secret'
-});
+// var connection = mysql.createConnection({
+//   host     : 'localhost',
+//   user     : 'root',
+//   password : 'secret'
+// });
 
 scraper
   .get('https://itmdapps.milwaukee.gov/MPDCallData/')
@@ -22,10 +24,10 @@ scraper
     console.log(tableData)
   })
 
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
-  console.log('connected as id ' + connection.threadId);
-});
+// connection.connect(function(err) {
+//   if (err) {
+//     console.error('error connecting: ' + err.stack);
+//     return;
+//   }
+//   console.log('connected as id ' + connection.threadId);
+// });

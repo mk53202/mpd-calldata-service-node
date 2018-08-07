@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/mk53202/mpd-calldata-service-node#readme",
   "dependencies": {
-    "table-scraper": "^0.1.0"
+    "mysql": "^2.16.0",
+    "table-scraper": "^0.1.0",
+    "tasktimer": "^1.0.0"
   }
 }
