@@ -18,4 +18,4 @@ WORKDIR /www
 
 # start command as per package.json
 CMD ["node", "db-create.js"]
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
