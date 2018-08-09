@@ -18,4 +18,5 @@ COPY . /www
 WORKDIR /www
 
 # start command as per package.json
+CMD ["npm", "init"]
 CMD ["npm", "start"]
