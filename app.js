@@ -8,26 +8,66 @@
 
 // Libraries
 var scraper = require('table-scraper')
-// var mysql = require('mysql')
-// var TaskTimer = require('tasktimer')
+var mysql = require('mysql2')
+var TaskTimer = require('tasktimer')
 
 // Vars
-// var connection = mysql.createConnection({
-//   host     : 'localhost',
-//   user     : 'root',
-//   password : 'secret'
-// });
+var timer = new TaskTimer(60000)
+var callnumberMarker = 0
 
-scraper
-  .get('https://itmdapps.milwaukee.gov/MPDCallData/')
-  .then(function(tableData) {
-    console.log(tableData)
+scrapeIt() // Run initial time outside of timer
+
+// Add task(s) based on tick intervals.
+timer.addTask({
+    name: 'job1',       // unique name of the task
+    tickInterval: 5,    // run every 5 ticks (5 x interval = 5000 ms)
+    totalRuns: 3,      // run 5 times only. (set to 0 for unlimited times)
+    callback: function (task) {
+      scrapeIt()
+      console.log(task.name + ' task has run ' + task.currentRuns + ' times.')
+      if( task.currentRuns >= task.totalRuns ) {
+        timer.stop()
+      }
+    }
+})
+
+timer.start()
+
+function scrapeIt() {
+  scraper
+    .get('https://itmdapps.milwaukee.gov/MPDCallData/')
+    .then(function(tableData) {
+      parseCallTable( tableData )
+    })
+    .catch(function (err) {
+      console.log("Got error with scraper request:\n" + err)
+    })
+}
+
+function parseCallTable( tableData ) {
+
+  var connection = mysql.createConnection({
+    host     : 'tacovm2',
+    user     : 'root',
+    password : 'secret',
+    database : "mpd-calldata"
   })
 
-// connection.connect(function(err) {
-//   if (err) {
-//     console.error('error connecting: ' + err.stack);
-//     return;
-//   }
-//   console.log('connected as id ' + connection.threadId);
-// });
+  tableData[0].forEach(function(mpdcall) { // Using [0] since it's the first and only table
+    var callnumber = mpdcall['Call Number']
+    var timestamp = mpdcall['Date/Time']
+    var location = mpdcall.Location
+    var district = mpdcall['Police District']
+    var calltype = mpdcall['Nature of Call']
+    var status = mpdcall.Status
+
+    var sql_insert = `INSERT IGNORE INTO \`calls\` (\`callnumber\`, \`timestamp\`, \`location\`, \`district\`, \`calltype\`, \`status\`) VALUES (${callnumber}, '${timestamp}', '${location}', ${district}, '${calltype}', '${status}')`
+    connection.query(
+      sql_insert,
+      function(err, results, fields) {
+      }
+    )
+    // console.log(sql_insert)
+  })
+  connection.end()
+}
