@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-sudo docker run --detach --network=host --name my-mpd-calldata mpd-calldata
+docker run --detach --network=host --name my-mpd-calldata mpd-calldata

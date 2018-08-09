@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # if [ -f ./.env ]; then
-   sudo docker build -t mpd-calldata .
+   docker build -t mpd-calldata .
 # else
 #    echo Please copy .env_sample with API key to .env, exiting build. Sad face.
 # fi
