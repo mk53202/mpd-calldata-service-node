@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+docker login
+docker commit my-mpd-calldata mk53202/mpd-calldata:latest
+docker push mk53202/mpd-calldata:latest

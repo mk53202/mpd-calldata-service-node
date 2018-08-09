@@ -13,7 +13,6 @@ var TaskTimer = require('tasktimer')
 
 // Vars
 var timer = new TaskTimer(60000)
-var callnumberMarker = 0
 
 scrapeIt() // Run initial time outside of timer
 
@@ -21,13 +20,13 @@ scrapeIt() // Run initial time outside of timer
 timer.addTask({
     name: 'job1',       // unique name of the task
     tickInterval: 5,    // run every 5 ticks (5 x interval = 5000 ms)
-    totalRuns: 3,      // run 5 times only. (set to 0 for unlimited times)
+    totalRuns: 0,      // run 5 times only. (set to 0 for unlimited times)
     callback: function (task) {
       scrapeIt()
-      console.log(task.name + ' task has run ' + task.currentRuns + ' times.')
-      if( task.currentRuns >= task.totalRuns ) {
-        timer.stop()
-      }
+      // console.log(task.name + ' task has run ' + task.currentRuns + ' times.')
+      // if( task.currentRuns >= task.totalRuns ) {
+      //   timer.stop()
+      // }
     }
 })
 
@@ -47,9 +46,9 @@ function scrapeIt() {
 function parseCallTable( tableData ) {
 
   var connection = mysql.createConnection({
-    host     : 'tacovm2',
+    host     : '127.0.0.1',
     user     : 'root',
-    password : 'secret',
+    password : 'fdhjhpcdkjhyfjdfdj3d52',
     database : "mpd-calldata"
   })
 

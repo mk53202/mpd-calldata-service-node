@@ -9,9 +9,9 @@
 var importer = require('node-mysql-importer')
 
 importer.config({
-    'host': 'tacovm2',
+    'host': '127.0.0.1',
     'user': 'root',
-    'password': 'secret'
+    'password': 'fdhjhpcdkjhyfjdfdj3d52'
 })
 
 importer.importSQL('sql/create.sql').then( () => {
