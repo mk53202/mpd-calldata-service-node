@@ -5,16 +5,19 @@
 // https://www.npmjs.com/package/table-scraper
 // https://github.com/mysqljs/mysql
 // https://www.npmjs.com/package/tasktimer
+// https://stackoverflow.com/questions/9472167/what-is-the-best-way-to-delete-old-rows-from-mysql-on-a-rolling-basis
 
 // Libraries
 var scraper = require('table-scraper')
 var mysql = require('mysql2')
 var TaskTimer = require('tasktimer')
+var importer = require('node-mysql-importer')
+var config = require('dotenv').config({path: './database.config'}); // For config
 
 // Vars
 var timer = new TaskTimer(60000)
 
-scrapeIt() // Run initial time outside of timer
+initDB()
 
 // Add task(s) based on tick intervals.
 timer.addTask({
@@ -32,6 +35,20 @@ timer.addTask({
 
 timer.start()
 
+function initDB() {
+  importer.config({
+      'host': process.env.DATABASE_HOST,
+      'user': process.env.DATABASE_USER,
+      'password': process.env.DATABASE_PASSWORD
+  })
+  importer.importSQL('sql/create.sql').then( () => {
+      console.log('Database materialized.')
+  })
+  .catch( err => {
+      console.log(`error: ${err}`)
+  })
+}
+
 function scrapeIt() {
   scraper
     .get('https://itmdapps.milwaukee.gov/MPDCallData/')
@@ -46,10 +63,10 @@ function scrapeIt() {
 function parseCallTable( tableData ) {
 
   var connection = mysql.createConnection({
-    host     : '127.0.0.1',
-    user     : 'root',
-    password : 'fdhjhpcdkjhyfjdfdj3d52',
-    database : "mpd-calldata"
+    host     : process.env.DATABASE_HOST,
+    user     : process.env.DATABASE_USER,
+    password : process.env.DATABASE_PASSWORD,
+    database : process.env.DATABASE_NAME
   })
 
   tableData[0].forEach(function(mpdcall) { // Using [0] since it's the first and only table

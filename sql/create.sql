@@ -3,7 +3,7 @@ SET time_zone = '-05:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP DATABASE IF EXISTS `mpd-calldata`;
+#DROP DATABASE IF EXISTS `mpd-calldata`;
 CREATE DATABASE `mpd-calldata`;
 USE `mpd-calldata`;
 
