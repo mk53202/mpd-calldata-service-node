@@ -36,17 +36,19 @@ timer.addTask({
 timer.start()
 
 function initDB() {
-  importer.config({
-      'host': process.env.DATABASE_HOST,
-      'user': process.env.DATABASE_USER,
-      'password': process.env.DATABASE_PASSWORD
+  var connection = mysql.createConnection({
+    host     : process.env.DATABASE_HOST,
+    user     : process.env.DATABASE_USER,
+    password : process.env.DATABASE_PASSWORD,
+    database : process.env.DATABASE_NAME
   })
-  importer.importSQL('sql/create.sql').then( () => {
-      console.log('Database materialized.')
-  })
-  .catch( err => {
-      console.log(`error: ${err}`)
-  })
+  connection.query(
+    '',
+    function(err, results, fields) {
+      console.log(results); // results contains rows returned by server
+      console.log(fields); // fields contains extra meta data about results, if available
+    }
+  )
 }
 
 function scrapeIt() {

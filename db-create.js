@@ -16,7 +16,6 @@ importer.config({
 
 importer.importSQL('sql/create.sql').then( () => {
     console.log('Database materialized.')
-    importer.end()
 })
 .catch( err => {
     console.log(`error: ${err}`)

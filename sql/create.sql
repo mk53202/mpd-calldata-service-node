@@ -4,7 +4,7 @@ SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 #DROP DATABASE IF EXISTS `mpd-calldata`;
-CREATE DATABASE `mpd-calldata`;
+CREATE DATABASE IF NOT EXISTS `mpd-calldata`;
 USE `mpd-calldata`;
 
 DROP TABLE IF EXISTS `calls`;
