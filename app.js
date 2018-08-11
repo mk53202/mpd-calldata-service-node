@@ -74,6 +74,7 @@ function parseCallTable( tableData ) {
     var calltype = mpdcall['Nature of Call']
     var status = mpdcall.Status
 
+    // Fix sql_insert to shorten inserts below
     var sql_insert = `INSERT IGNORE INTO \`calls\` (\`callnumber\`, \`timestamp\`, \`location\`, \`district\`, \`calltype\`, \`status\`) VALUES (${callnumber}, '${timestamp}', '${location}', ${district}, '${calltype}', '${status}')`
     connection.query(
       sql_insert,
