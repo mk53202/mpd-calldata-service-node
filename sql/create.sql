@@ -1,14 +1,7 @@
-SET NAMES utf8;
-SET time_zone = '-05:00';
-SET foreign_key_checks = 0;
-SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
-
-#DROP DATABASE IF EXISTS `mpd-calldata`;
 CREATE DATABASE IF NOT EXISTS `mpd-calldata`;
 USE `mpd-calldata`;
 
-DROP TABLE IF EXISTS `calls`;
-CREATE TABLE `calls` (
+CREATE TABLE IF NOT EXISTS `calls` (
   `callnumber` int(10) NOT NULL,
   `timestamp` char(50) NOT NULL,
   `location` char(50) NOT NULL,

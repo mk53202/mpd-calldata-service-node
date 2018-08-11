@@ -6,12 +6,14 @@
 //
 
 // Libraries
-var importer = require('node-mysql-importer')
+// var importer = require('node-mysql-importer')
+var importer = require('./util/sqlimport.js')
+var config = require('dotenv').config({path: './database.config'}); // For config
 
-importer.config({
-    'host': '127.0.0.1',
-    'user': 'root',
-    'password': 'fdhjhpcdkjhyfjdfdj3d52'
+sqlimporter.config({
+    'host': process.env.DATABASE_HOST,
+    'user': process.env.DATABASE_USER,
+    'password': process.env.DATABASE_PASSWORD
 })
 
 importer.importSQL('sql/create.sql').then( () => {

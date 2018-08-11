@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# if [ -f ./.env ]; then
+if [ -f ./database.config ]; then
    docker build -t mpd-calldata .
-# else
-#    echo Please copy .env_sample with API key to .env, exiting build. Sad face.
-# fi
+else
+   echo Please copy database.config_example with secrets to database.config , exiting build. Sad face.
+fi

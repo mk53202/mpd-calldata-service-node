@@ -4,6 +4,7 @@
 // https://itmdapps.milwaukee.gov/MPDCallData/index.jsp?district=All
 // https://www.npmjs.com/package/table-scraper
 // https://github.com/mysqljs/mysql
+// https://www.npmjs.com/package/execsql #maybe some day?
 // https://www.npmjs.com/package/tasktimer
 // https://stackoverflow.com/questions/9472167/what-is-the-best-way-to-delete-old-rows-from-mysql-on-a-rolling-basis
 
@@ -11,7 +12,7 @@
 var scraper = require('table-scraper')
 var mysql = require('mysql2')
 var TaskTimer = require('tasktimer')
-var importer = require('node-mysql-importer')
+var sqlimporter = require('./util/sqlimport.js')
 var config = require('dotenv').config({path: './database.config'}); // For config
 
 // Vars
@@ -26,29 +27,23 @@ timer.addTask({
     totalRuns: 0,      // run 5 times only. (set to 0 for unlimited times)
     callback: function (task) {
       scrapeIt()
-      // console.log(task.name + ' task has run ' + task.currentRuns + ' times.')
-      // if( task.currentRuns >= task.totalRuns ) {
-      //   timer.stop()
-      // }
     }
 })
 
 timer.start()
 
 function initDB() {
-  var connection = mysql.createConnection({
-    host     : process.env.DATABASE_HOST,
-    user     : process.env.DATABASE_USER,
-    password : process.env.DATABASE_PASSWORD,
-    database : process.env.DATABASE_NAME
+  sqlimporter.config({
+      'host': process.env.DATABASE_HOST,
+      'user': process.env.DATABASE_USER,
+      'password': process.env.DATABASE_PASSWORD
   })
-  connection.query(
-    '',
-    function(err, results, fields) {
-      console.log(results); // results contains rows returned by server
-      console.log(fields); // fields contains extra meta data about results, if available
-    }
-  )
+  sqlimporter.importSQL('sql/create.sql').then( () => {
+      console.log('initDB() materialized.')
+  })
+  .catch( err => {
+      console.log(`error: ${err}`)
+  })
 }
 
 function scrapeIt() {
