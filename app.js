@@ -26,7 +26,17 @@ timer.addTask({
     tickInterval: 5,    // run every 5 ticks (5 x interval = 5000 ms)
     totalRuns: 0,      // run 5 times only. (set to 0 for unlimited times)
     callback: function (task) {
-      scrapeIt()
+      scrapeIt('https://itmdapps.milwaukee.gov/MPDCallData/')
+    }
+})
+
+// Add task(s) based on tick intervals.
+timer.addTask({
+    name: 'job2',       // unique name of the task
+    tickInterval: 5,    // run every 5 ticks (5 x interval = 5000 ms)
+    totalRuns: 0,      // run 5 times only. (set to 0 for unlimited times)
+    callback: function (task) {
+      scrapeIt('https://itmdapps.milwaukee.gov/MFDCallData/index.jsp')
     }
 })
 
@@ -46,9 +56,9 @@ function initDB() {
   })
 }
 
-function scrapeIt() {
+function scrapeIt(url2scrape) {
   scraper
-    .get('https://itmdapps.milwaukee.gov/MPDCallData/')
+    .get(url2scrape)
     .then(function(tableData) {
       parseCallTable( tableData )
     })

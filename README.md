@@ -1,2 +1,2 @@
 # mpd-calldata-service-node
-Call data service
+MPD call data database logger
