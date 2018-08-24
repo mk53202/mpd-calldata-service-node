@@ -10,3 +10,6 @@ CREATE TABLE IF NOT EXISTS `calls` (
   `status` char(25) NOT NULL,
   PRIMARY KEY (`callnumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE VIEW `viewEMT` AS select * from `calls` where (`calls`.`district` = '10') order by `calls`.`callnumber` desc limit 50;
+CREATE VIEW `viewPolice` AS select * from `calls` where (`calls`.`district` != '10') order by `calls`.`callnumber` desc limit 50;
