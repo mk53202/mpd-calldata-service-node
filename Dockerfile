@@ -1,8 +1,7 @@
-FROM node:8
-
+FROM alpine:3.4
 LABEL authors="Matt Koster <mattkoster@gmail.com>"
-
-WORKDIR /usr/src/app
+RUN apk add --update nodejs bash
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
