@@ -1,6 +1,6 @@
-FROM alpine:3.4
+FROM alpine:3.8
 LABEL authors="Matt Koster <mattkoster@gmail.com>"
-RUN apk add --update nodejs bash
+RUN apk add --update nodejs npm bash
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
