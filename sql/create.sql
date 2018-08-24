@@ -13,3 +13,4 @@ CREATE TABLE IF NOT EXISTS `calls` (
 
 CREATE VIEW `viewEMT` AS select * from `calls` where (`calls`.`district` = '10') order by `calls`.`callnumber` desc limit 50;
 CREATE VIEW `viewPolice` AS select * from `calls` where (`calls`.`district` != '10') order by `calls`.`callnumber` desc limit 50;
+CREATE VIEW `viewShots` AS SELECT * FROM `calls` WHERE `calltype` LIKE '%SHOTS%' OR `calltype` = 'SHOOTING' order by `calls`.`callnumber` desc limit 50;
