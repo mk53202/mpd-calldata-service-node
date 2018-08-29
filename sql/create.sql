@@ -27,6 +27,7 @@ AND (`calltype` <> 'OUT OF SERVICE')
 AND (`calltype` <> 'POLICE ADMIN')
 AND (`calltype` <> 'COURT DUTY')
 AND (`calltype` <> 'BUSINESS CHECK')
+AND (`calltype` <> 'PARK AND WALK')
 AND (`calltype` <> 'RETURN STATION')
 ) ORDER BY `callnumber` DESC;
 
