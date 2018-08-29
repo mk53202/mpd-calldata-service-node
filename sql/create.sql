@@ -11,6 +11,27 @@ CREATE TABLE IF NOT EXISTS `calls` (
   PRIMARY KEY (`callnumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE VIEW `viewEMT` AS select * from `calls` where (`calls`.`district` = '10') order by `calls`.`callnumber` desc limit 50;
-CREATE VIEW `viewPolice` AS select * from `calls` where (`calls`.`district` != '10') order by `calls`.`callnumber` desc limit 50;
-CREATE VIEW `viewShots` AS SELECT * FROM `calls` WHERE `calltype` LIKE '%SHOTS%' OR `calltype` = 'SHOOTING' order by `calls`.`callnumber` desc limit 50;
+
+CREATE OR REPLACE VIEW `viewEMT` AS select * from `calls`
+where (`calls`.`district` = '10') order by `calls`.`callnumber` DESC;
+
+CREATE OR REPLACE VIEW `viewPolice` AS select * from `calls`
+where (`calls`.`district` != '10') order by `calls`.`callnumber` DESC;
+
+CREATE OR REPLACE VIEW `viewShots` AS SELECT * FROM `calls`
+WHERE `calltype` LIKE '%SHOTS%' OR `calltype` = 'SHOOTING' ORDER BY `callnumber` DESC;
+
+CREATE OR REPLACE VIEW `viewDistrict1` AS SELECT * FROM `calls`
+WHERE ((`district` = '1')
+AND (`calltype` <> 'OUT OF SERVICE')
+AND (`calltype` <> 'POLICE ADMIN')
+AND (`calltype` <> 'COURT DUTY')
+AND (`calltype` <> 'BUSINESS CHECK')
+AND (`calltype` <> 'RETURN STATION')
+) ORDER BY `callnumber` DESC;
+
+CREATE OR REPLACE VIEW `viewDistrict1-walk-check` AS SELECT * FROM `calls`
+WHERE ((`district` = '1')
+AND ((`calltype` = 'PARK AND WALK')
+OR (`calltype` = 'BUSINESS CHECK'))
+) ORDER BY `callnumber` DESC;
