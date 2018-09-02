@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS `calls` (
   `district` char(25) NOT NULL,
   `calltype` char(25) NOT NULL,
   `status` char(25) NOT NULL,
+  `lat` double(9,6) NOT NULL,
+  `lon` double(9,6) NOT NULL,
   PRIMARY KEY (`callnumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,12 +42,16 @@ AND (`calltype` <> 'POLICE ADMIN')
 AND (`calltype` <> 'COURT DUTY')
 AND (`calltype` <> 'BUSINESS CHECK')
 AND (`calltype` <> 'PARK AND WALK')
+AND (`calltype` <> 'SPECIAL ASSIGN')
+AND (`calltype` <> 'TAVERN CHECK')
 AND (`calltype` <> 'RETURN STATION')
 ) ORDER BY `callnumber` DESC;
 
 CREATE OR REPLACE VIEW `viewDistrict1-walk-check` AS SELECT * FROM `calls`
 WHERE ((`district` = '1')
 AND ((`calltype` = 'PARK AND WALK')
+OR (`calltype` = 'SPECIAL ASSIGN')
+OR (`calltype` = 'TAVERN CHECK')
 OR (`calltype` = 'BUSINESS CHECK'))
 ) ORDER BY `callnumber` DESC;
 
@@ -55,6 +61,12 @@ OR (`calltype` = 'BUSINESS CHECK'))
 
 CREATE INDEX idx_district ON calls (district);
 CREATE INDEX idx_calltype ON calls (calltype);
+
+
+-- DROP TABLE `district1-walk-check`;
+-- CREATE TABLE `district1-walk-check`
+-- SELECT `callnumber`, `timestamp`, `location` FROM `viewDistrict1-walk-check`;
+
 
 -- ALTER TABLE calls
 -- DROP INDEX idx_district;
