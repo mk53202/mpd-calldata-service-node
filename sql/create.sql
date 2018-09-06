@@ -1,10 +1,6 @@
 CREATE DATABASE IF NOT EXISTS `mpd-calldata`;
 USE `mpd-calldata`;
 
---
--- CREATE TABLEs
---
-
 CREATE TABLE IF NOT EXISTS `calls` (
   `callnumber` int(10) NOT NULL,
   `timestamp` char(50) NOT NULL,
@@ -16,10 +12,6 @@ CREATE TABLE IF NOT EXISTS `calls` (
   `lon` double(9,6) NOT NULL,
   PRIMARY KEY (`callnumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- CREATE VIEWs
---
 
 CREATE OR REPLACE VIEW `viewEMT` AS SELECT * from `calls`
 WHERE (`calls`.`district` = '10') ORDER BY `calls`.`callnumber` DESC;
@@ -55,20 +47,5 @@ OR (`calltype` = 'TAVERN CHECK')
 OR (`calltype` = 'BUSINESS CHECK'))
 ) ORDER BY `callnumber` DESC;
 
---
--- CREATE INDEXs
---
-
 CREATE INDEX idx_district ON calls (district);
 CREATE INDEX idx_calltype ON calls (calltype);
-
-
--- DROP TABLE `district1-walk-check`;
--- CREATE TABLE `district1-walk-check`
--- SELECT `callnumber`, `timestamp`, `location` FROM `viewDistrict1-walk-check`;
-
-
--- ALTER TABLE calls
--- DROP INDEX idx_district;
--- ALTER TABLE calls
--- DROP INDEX idx_calltype;
