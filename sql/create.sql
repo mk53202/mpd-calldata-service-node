@@ -47,5 +47,14 @@ OR (`calltype` = 'TAVERN CHECK')
 OR (`calltype` = 'BUSINESS CHECK'))
 ) ORDER BY `callnumber` DESC;
 
+CREATE OR REPLACE VIEW `viewDistrict1-streets` AS SELECT * FROM `calls`
+WHERE ((`district` = '1') OR (`district` = '10'))
+AND ((`location` LIKE '%HUMBOLDT%')
+OR (`location` LIKE '%PEARSON%')
+OR (`location` LIKE '%BRADY%')
+OR (`location` LIKE '%HAMILTON%')
+OR (`location` LIKE '%ASTOR%'))
+ORDER BY `callnumber` DESC;
+
 CREATE INDEX idx_district ON calls (district);
 CREATE INDEX idx_calltype ON calls (calltype);
