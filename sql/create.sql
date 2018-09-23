@@ -56,5 +56,10 @@ OR (`location` LIKE '%HAMILTON%')
 OR (`location` LIKE '%ASTOR%'))
 ORDER BY `callnumber` DESC;
 
+CREATE OR REPLACE VIEW `viewDistrict1-autos` AS SELECT * FROM `calls`
+WHERE (`district` = '1')
+AND (`calltype` = 'ENTRY AUTOS')
+ORDER BY `callnumber` DESC;
+
 CREATE INDEX idx_district ON calls (district);
 CREATE INDEX idx_calltype ON calls (calltype);
