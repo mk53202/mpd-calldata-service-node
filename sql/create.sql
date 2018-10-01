@@ -19,6 +19,9 @@ WHERE (`calls`.`district` = '10') ORDER BY `calls`.`callnumber` DESC;
 CREATE OR REPLACE VIEW `viewPolice` AS SELECT * from `calls`
 WHERE (`calls`.`district` != '10') ORDER BY `calls`.`callnumber` DESC;
 
+CREATE OR REPLACE VIEW `viewPolice-noDistrict1` AS SELECT * from `calls`
+WHERE ((`calls`.`district` != '1') AND (`calls`.`district` != '10')) ORDER BY `calls`.`callnumber` DESC;
+
 CREATE OR REPLACE VIEW `viewPolice-walk-check` AS SELECT * FROM `viewPolice`
 WHERE ((`calltype` = 'PARK AND WALK') OR (`calltype` = 'BUSINESS CHECK'))
 ORDER BY `callnumber` DESC;
