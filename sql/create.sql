@@ -27,7 +27,7 @@ WHERE ((`calltype` = 'PARK AND WALK') OR (`calltype` = 'BUSINESS CHECK'))
 ORDER BY `callnumber` DESC;
 
 CREATE OR REPLACE VIEW `viewShots` AS SELECT * FROM `calls`
-WHERE ((`calltype` = 'SHOTS FIRED') OR (`calltype` = 'SHOOTING'))
+WHERE ((`calltype` LIKE 'SHOT%') OR (`calltype` = 'SHOOTING'))
 ORDER BY `callnumber` DESC;
 
 CREATE OR REPLACE VIEW `viewDistrict1-nojunk` AS SELECT * FROM `calls`
