@@ -64,5 +64,5 @@ WHERE (`district` = '1')
 AND (`calltype` LIKE '%ENTRY%')
 ORDER BY `callnumber` DESC;
 
-CREATE INDEX idx_district ON calls (district);
-CREATE INDEX idx_calltype ON calls (calltype);
+-- CREATE OR REPLACE INDEX idx_district ON calls (district);
+-- CREATE OR REPLACE INDEX idx_calltype ON calls (calltype);
