@@ -63,6 +63,3 @@ CREATE OR REPLACE VIEW `viewDistrict1-entry` AS SELECT * FROM `calls`
 WHERE (`district` = '1')
 AND (`calltype` LIKE '%ENTRY%')
 ORDER BY `callnumber` DESC;
-
-CREATE OR REPLACE INDEX idx_district ON calls (district);
-CREATE OR REPLACE INDEX idx_calltype ON calls (calltype);
