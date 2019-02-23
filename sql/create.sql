@@ -63,3 +63,9 @@ CREATE OR REPLACE VIEW `viewDistrict1-entry` AS SELECT * FROM `calls`
 WHERE (`district` = '1')
 AND (`calltype` LIKE '%ENTRY%')
 ORDER BY `callnumber` DESC;
+
+CREATE OR REPLACE VIEW `viewMomDad` AS SELECT * FROM `calls`
+WHERE ((`district` = '6') OR (`district` = '10'))
+AND ((`location` LIKE '%OKLAHOMA%')
+OR (`location` LIKE '%MANITOBA%'))
+ORDER BY `callnumber` DESC;

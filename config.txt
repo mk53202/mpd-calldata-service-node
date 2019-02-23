@@ -1,0 +1,4 @@
+DATABASE_USER=db
+DATABASE_PASSWORD=secret77
+DATABASE_NAME=mpd-calldata
+DATABASE_HOST=mpd-calldata.cak4mmt2ff02.us-east-1.rds.amazonaws.com
