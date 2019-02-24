@@ -69,3 +69,8 @@ WHERE ((`district` = '6') OR (`district` = '10'))
 AND ((`location` LIKE '%OKLAHOMA%')
 OR (`location` LIKE '%MANITOBA%'))
 ORDER BY `callnumber` DESC;
+
+CREATE OR REPLACE VIEW `viewTableSize` AS SELECT table_schema AS "Database",
+ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS "Size (MB)"
+FROM information_schema.TABLES
+GROUP BY table_schema;

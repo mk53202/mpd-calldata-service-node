@@ -113,6 +113,8 @@ function parseMPD( tableData ) {
     var calltype = mpdcall['Nature of Call']
     var status = mpdcall.Status
 
+    var timestamp = Date.parse(timestamp); // Normalize timestamp to Unix epoch
+
     var sql_insert = `INSERT IGNORE INTO \`calls\` (\`callnumber\`, \`timestamp\`, \`location\`, \`district\`, \`calltype\`, \`status\`) VALUES (${callnumber}, '${timestamp}', '${location}', '${district}', '${calltype}', '${status}')`
     connection.execute(
       sql_insert,
@@ -138,6 +140,8 @@ function parseMFD( jsonData ) {
     var district = mpdcall['city']
     var calltype = mpdcall['type']
     var status = mpdcall['disposition']
+
+    var timestamp = Date.parse(timestamp); // Normalize timestamp to Unix epoch
 
     var sql_insert = `INSERT IGNORE INTO \`calls\` (\`callnumber\`, \`timestamp\`, \`location\`, \`district\`, \`calltype\`, \`status\`) VALUES (${callnumber}, '${timestamp}', '${location}', '10', '${calltype}', '${status}')`
     connection.execute(
