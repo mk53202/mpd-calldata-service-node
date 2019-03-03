@@ -15,6 +15,7 @@ var TaskTimer = require('tasktimer')
 var sqlimporter = require('./util/sqlimport.js')
 const request = require('request-promise')
 var config = require('dotenv').config({path: './database.config'}); // For config
+var moment = require('moment')
 
 // Vars
 var timer = new TaskTimer(60000)
@@ -113,7 +114,7 @@ function parseMPD( tableData ) {
     var calltype = mpdcall['Nature of Call']
     var status = mpdcall.Status
 
-    var timestamp = Date.parse(timestamp); // Normalize timestamp to Unix epoch
+    var timestamp = moment(timestamp).format("YYYY-MM-DD HH:mm:ss");
 
     var sql_insert = `INSERT IGNORE INTO \`calls\` (\`callnumber\`, \`timestamp\`, \`location\`, \`district\`, \`calltype\`, \`status\`) VALUES (${callnumber}, '${timestamp}', '${location}', '${district}', '${calltype}', '${status}')`
     connection.execute(
@@ -140,8 +141,8 @@ function parseMFD( jsonData ) {
     var district = mpdcall['city']
     var calltype = mpdcall['type']
     var status = mpdcall['disposition']
-
-    var timestamp = Date.parse(timestamp); // Normalize timestamp to Unix epoch
+    
+    var timestamp = moment(timestamp).format("YYYY-MM-DD HH:mm:ss");
 
     var sql_insert = `INSERT IGNORE INTO \`calls\` (\`callnumber\`, \`timestamp\`, \`location\`, \`district\`, \`calltype\`, \`status\`) VALUES (${callnumber}, '${timestamp}', '${location}', '10', '${calltype}', '${status}')`
     connection.execute(
