@@ -29,7 +29,7 @@
     "mysql": "^2.16.0",
     "mysql2": "^1.6.1",
     "request-promise": "^4.2.2",
-    "table-scraper": "^0.1.0",
+    "table-scraper": "^1.0.3",
     "tasktimer": "^1.0.0"
   }
 }
